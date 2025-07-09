@@ -40,8 +40,8 @@ export default function Component() {
   }, [])
 
   return (
-    <div className="w-full max-h-[100dvh] min-h-[100dvh] bg-gradient-to-br from-background to-secondary/20 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
+    <div className="w-full h-screen bg-gradient-to-br from-background to-secondary/20 relative overflow-hidden" style={{ height: '100dvh' }}>
+      <div className="absolute top-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="px-3 sm:px-6 py-3">
           <ProgressIndicator currentState={stateIndex} />
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-3 gap-4 sm:gap-0">
@@ -54,7 +54,7 @@ export default function Component() {
         <Instructions />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm border-t border-border">
+      <div className="absolute bottom-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <MobileNavigation currentState={stateIndex} onStateChange={setStateIndex} />
       </div>
 

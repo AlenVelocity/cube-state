@@ -12,6 +12,21 @@ body {
   }
 }
 
+@supports (height: 100dvh) {
+  .h-screen {
+    height: 100dvh;
+  }
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -90,5 +105,21 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  html {
+    touch-action: manipulation;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
   }
 }

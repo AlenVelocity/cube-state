@@ -25,12 +25,14 @@ export function MobileNavigation({ currentState, onStateChange }: MobileNavigati
   }
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
     setIsDragging(true)
     handleInteraction(e.clientX)
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return
+    e.preventDefault()
     handleInteraction(e.clientX)
   }
 
@@ -39,6 +41,7 @@ export function MobileNavigation({ currentState, onStateChange }: MobileNavigati
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault()
     setIsDragging(true)
     handleInteraction(e.touches[0].clientX)
   }
@@ -49,13 +52,15 @@ export function MobileNavigation({ currentState, onStateChange }: MobileNavigati
     handleInteraction(e.touches[0].clientX)
   }
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault()
     setIsDragging(false)
   }
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       if (!isDragging) return
+      e.preventDefault()
       handleInteraction(e.clientX)
     }
 
@@ -63,16 +68,28 @@ export function MobileNavigation({ currentState, onStateChange }: MobileNavigati
       setIsDragging(false)
     }
 
+    const handleGlobalTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return
+      e.preventDefault()
+      handleInteraction(e.touches[0].clientX)
+    }
+
+    const handleGlobalTouchEnd = () => {
+      setIsDragging(false)
+    }
+
     if (isDragging) {
-      document.addEventListener('mousemove', handleGlobalMouseMove)
+      document.addEventListener('mousemove', handleGlobalMouseMove, { passive: false })
       document.addEventListener('mouseup', handleGlobalMouseUp)
-      document.addEventListener('touchend', handleGlobalMouseUp)
+      document.addEventListener('touchmove', handleGlobalTouchMove, { passive: false })
+      document.addEventListener('touchend', handleGlobalTouchEnd)
     }
 
     return () => {
       document.removeEventListener('mousemove', handleGlobalMouseMove)
       document.removeEventListener('mouseup', handleGlobalMouseUp)
-      document.removeEventListener('touchend', handleGlobalMouseUp)
+      document.removeEventListener('touchmove', handleGlobalTouchMove)
+      document.removeEventListener('touchend', handleGlobalTouchEnd)
     }
   }, [isDragging])
 
@@ -95,10 +112,10 @@ export function MobileNavigation({ currentState, onStateChange }: MobileNavigati
   }
 
   return (
-    <div className="w-full px-4 py-4">
+    <div className="w-full px-4 py-4 min-h-[4rem] flex items-center">
       <div 
         ref={sliderRef}
-        className="relative w-full h-8 bg-secondary/20 rounded-lg cursor-pointer select-none touch-none border border-border/50"
+        className="relative w-full h-8 cursor-pointer select-none touch-none"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
