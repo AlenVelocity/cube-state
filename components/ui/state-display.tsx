@@ -77,7 +77,7 @@ export function StateDisplay({ currentState, onStateChange }: StateDisplayProps)
         </Button>
       </div>
       <div className="text-xs sm:text-sm text-muted-foreground mt-1">
-        {MAX_STATES.toLocaleString()} total states
+        {MAX_STATES.toLocaleString('en-US')} total states
       </div>
     </div>
   )
