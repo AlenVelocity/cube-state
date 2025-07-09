@@ -40,7 +40,7 @@ export default function Component() {
   }, [])
 
   return (
-    <div className="w-full h-screen bg-gradient-to-br from-background to-secondary/20 relative overflow-hidden">
+    <div className="w-full max-h-[100dvh] min-h-[100dvh] bg-gradient-to-br from-background to-secondary/20 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="px-3 sm:px-6 py-3">
           <ProgressIndicator currentState={stateIndex} />
