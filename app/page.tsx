@@ -6,6 +6,7 @@ import { Scene } from "@/components/cube/Scene"
 import { StateDisplay } from "@/components/ui/state-display"
 import { Instructions } from "@/components/ui/instructions"
 import { ProgressIndicator } from "@/components/ui/progress-indicator"
+import { MobileNavigation } from "@/components/ui/mobile-navigation"
 import { MAX_STATES, bigIntMax, bigIntMin } from "@/lib/cube-utils"
 
 export default function Component() {
@@ -51,6 +52,10 @@ export default function Component() {
 
       <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 z-10">
         <Instructions />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm border-t border-border">
+        <MobileNavigation currentState={stateIndex} onStateChange={setStateIndex} />
       </div>
 
       <Canvas 
